@@ -1,6 +1,7 @@
 import java.io.FileWriter;
+import java.io.IOException;
 
-public class FlightFileWriter {
+public class FlightFileWriter() {
     public static boolean writeFile(String flightsFile) {
         try {
             FileWriter writer = new FileWriter(flightsFile); // creates or overwrites file
