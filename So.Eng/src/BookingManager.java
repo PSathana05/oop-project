@@ -67,6 +67,7 @@ public class BookingManager {
         List<String> bookings = FileUtils.readFile(bookingFile);
         //fix: resolve null checks and improve booking validation
         if (bookings == null || bookings.isEmpty()) {
+
             LOGGER.warning(BOOKING_NOT_FOUND);
             return false;
         }
@@ -105,7 +106,7 @@ public class BookingManager {
         if (flight != null) {
             flight.setSeats(flight.getSeats() + 1);
         }
-
+//refactor: replace System.out with logger for SonarQube compliance
         LOGGER.info("Ticket cancelled for " + name);
 
         return true;
