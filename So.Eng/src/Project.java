@@ -25,7 +25,7 @@ public class Project {
         // FIX:Replace string concatenation with built-in formatting
         LOGGER.log(Level.INFO, "Loaded {0} flights.", flights.size());
 
-        System.out.println("Loaded " + flights.size() + " flights.");
+
 
         while (true) {
             showMenu();
@@ -79,10 +79,64 @@ public class Project {
 
     private static void ensureSampleFlightsExist() {
         if (!FileUtils.exists(FLIGHTS_FILE)) {
-            System.out.println("Creating sample flights.txt...");
+            LOGGER.info("Creating sample flights.txt...");
             boolean success = FlightFileWriter.writeFile(FLIGHTS_FILE);
-            if (success) System.out.println("flights.txt created successfully.");
-            else System.out.println("Failed to create flights.txt.");
+            if (success) LOGGER.info("flights.txt created successfully.");
+            else LOGGER.info("Failed to create flights.txt.");
         }
     }
+
+    // Helper Method 1: Ticket Booking Logic
+    private static void handleBooking(Map<String, Flight> flights) {
+        LOGGER.info("Enter Flight No: ");
+        String fno = sc.nextLine().trim();
+        LOGGER.info("Enter Passenger Name: ");
+        Passenger p1 = new Passenger(sc.nextLine().trim());
+        if (bookingManager.bookTicket(flights, p1, fno, BOOKINGS_FILE)) {
+            flightManager.saveFlights(FLIGHTS_FILE);
+        }
+    }
+
+    // Helper Method 2: Ticket Cancellation Logic
+    private static void handleCancellation(Map<String, Flight> flights) {
+        LOGGER.info("Enter Flight No: ");
+        String cno = sc.nextLine().trim();
+        LOGGER.info("Enter Passenger Name: ");
+        Passenger p2 = new Passenger(sc.nextLine().trim());
+        if (bookingManager.cancelTicket(flights, p2, cno, BOOKINGS_FILE, CANCELLATIONS_FILE)) {
+            flightManager.saveFlights(FLIGHTS_FILE);
+        }
+    }
+
+    // Helper Method 3: Search Flights Logic
+    private static void handleSearch() {
+        LOGGER.info("Enter Destination: ");
+        String dest = sc.nextLine().trim();
+        List<Flight> results = flightManager.searchFlightsByDestination(dest);
+        if (results.isEmpty()) {
+            // FIX: java:S2629 - Formatting placeholder used
+            LOGGER.log(Level.INFO, "No flights found to {0}.", dest);
+        } else {
+            LOGGER.log(Level.INFO, "Available flights to {0}:", dest);
+            for (Flight f : results) {
+                LOGGER.log(Level.INFO, " - {0} : {1} -> {2} (Seats: {3})",
+                        new Object[]{f.getFlightNo(), f.getOrigin(), f.getDestination(), f.getSeats()});
+            }
+        }
+    }
+
+    // Helper Method 4: List Flights Logic
+    private static void handleListFlights(Map<String, Flight> flights) {
+        if (flights.isEmpty()) {
+            LOGGER.info("No flights loaded.");
+        } else {
+            LOGGER.info("All flights:");
+            for (Flight f : flights.values()) {
+                LOGGER.log(Level.INFO, " - {0} : {1} -> {2} (Seats: {3})",
+                        new Object[]{f.getFlightNo(), f.getOrigin(), f.getDestination(), f.getSeats()});
+            }
+        }
+    }
+
+
 }
