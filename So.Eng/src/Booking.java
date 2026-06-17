@@ -21,7 +21,7 @@ public class Booking {
     public Flight getFlight() {
         return flight;
     }
-
+//override
     @Override
     public String toString() {
         return passenger.getName() + "," + flight.getFlightNo();
