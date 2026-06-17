@@ -1,22 +1,19 @@
 import java.util.*;
+// Logger configuration updated
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Logger configuration updated
 public class Project {
     // Add logger configuration comments
-
     private static final Logger LOGGER = Logger.getLogger(Project.class.getName());
     private static final String FLIGHTS_FILE = "flights.txt";
     private static final String BOOKINGS_FILE = "bookings.txt";
     private static final String CANCELLATIONS_FILE = "cancellations.txt";
     private static final String REPORT_FILE = "report.txt";
 
-
     private static final FlightManager flightManager = new FlightManager();
     private static final BookingManager bookingManager = new BookingManager();
     private static final ReportManager reportManager = new ReportManager();
-
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -27,6 +24,8 @@ public class Project {
 
         // FIX:Replace string concatenation with built-in formatting
         LOGGER.log(Level.INFO, "Loaded {0} flights.", flights.size());
+
+
 
         while (true) {
             showMenu();
@@ -64,6 +63,8 @@ public class Project {
             }
         }
     }
+
+
 
     private static void showMenu() {
         LOGGER.info("\n--- Airline Reservation System ---");
@@ -136,4 +137,6 @@ public class Project {
             }
         }
     }
+
+
 }
