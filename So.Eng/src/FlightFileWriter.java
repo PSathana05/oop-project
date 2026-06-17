@@ -1,4 +1,4 @@
-import java.io.*;
+import java.io.FileWriter;
 
 public class FlightFileWriter {
     public static boolean writeFile(String flightsFile) {
