@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.logging.Level;
 
 public class FlightManager {
     private Map<String, Flight> flights = new LinkedHashMap<>();

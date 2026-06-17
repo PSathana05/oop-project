@@ -21,7 +21,7 @@ public class FlightFileWriter{
 
             return true;
         } catch (IOException e) {
-
+            //remove System.out.println
             return false;
         }
     }
