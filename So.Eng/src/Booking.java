@@ -1,8 +1,7 @@
-
-
 public class Booking {
-    private Passenger passenger;
-    private Flight flight;
+    // change the fields into final
+    private final Passenger passenger;
+    private final Flight flight;
 
     public Booking(Passenger passenger, Flight flight) {
         this.passenger = passenger;
