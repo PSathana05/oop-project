@@ -31,37 +31,18 @@ public class Project {
             showMenu();
             String choice = sc.nextLine().trim();
 
+            // FIX: Switch cases are refactored into helper methods to reduce Cognitive Complexity
             switch (choice) {
                 case "1":
-                    System.out.print("Enter Flight No: ");
-                    String fno = sc.nextLine().trim();
-                    System.out.print("Enter Passenger Name: ");
-                    Passenger p1 = new Passenger(sc.nextLine().trim());
-                    if (bookingManager.bookTicket(flights, p1, fno, BOOKINGS_FILE))
-                        flightManager.saveFlights(FLIGHTS_FILE);
+                    handleBooking(flights);
                     break;
 
                 case "2":
-                    System.out.print("Enter Flight No: ");
-                    String cno = sc.nextLine().trim();
-                    System.out.print("Enter Passenger Name: ");
-                    Passenger p2 = new Passenger(sc.nextLine().trim());
-                    if (bookingManager.cancelTicket(flights, p2, cno, BOOKINGS_FILE, CANCELLATIONS_FILE))
-                        flightManager.saveFlights(FLIGHTS_FILE);
+                    handleCancellation(flights);
                     break;
 
                 case "3":
-                    System.out.print("Enter Destination: ");
-                    String dest = sc.nextLine().trim();
-                    List<Flight> results = flightManager.searchFlightsByDestination(dest);
-                    if (results.isEmpty()) {
-                        System.out.println("No flights found to " + dest + ".");
-                    } else {
-                        System.out.println("Available flights to " + dest + ":");
-                        for (Flight f : results) {
-                            System.out.println(" - " + f.getFlightNo() + " : " + f.getOrigin() + " -> " + f.getDestination() + " (Seats: " + f.getSeats() + ")");
-                        }
-                    }
+                    handleSearch();
                     break;
 
                 case "4":
@@ -69,35 +50,31 @@ public class Project {
                     break;
 
                 case "5":
-                    if (flights.isEmpty()) System.out.println("No flights loaded.");
-                    else {
-                        System.out.println("All flights:");
-                        for (Flight f : flights.values()) {
-                            System.out.println(" - " + f.getFlightNo() + " : " + f.getOrigin() + " -> " + f.getDestination() + " (Seats: " + f.getSeats() + ")");
-                        }
-                    }
+                    handleListFlights(flights);
                     break;
 
                 case "6":
-                    System.out.println("Exiting system... Goodbye!");
+                    LOGGER.info("Exiting system... Goodbye!");
                     sc.close();
                     return;
 
                 default:
-                    System.out.println("Invalid choice. Enter 1–6.");
+                    LOGGER.info("Invalid choice. Enter 1–6.");
             }
         }
     }
 
+
+
     private static void showMenu() {
-        System.out.println("\n--- Airline Reservation System ---");
-        System.out.println("1. Book Ticket");
-        System.out.println("2. Cancel Ticket");
-        System.out.println("3. Search Flights (by Destination)");
-        System.out.println("4. Generate Report");
-        System.out.println("5. List All Flights");
-        System.out.println("6. Exit");
-        System.out.print("Enter choice: ");
+        LOGGER.info("\n--- Airline Reservation System ---");
+        LOGGER.info("1. Book Ticket");
+        LOGGER.info("2. Cancel Ticket");
+        LOGGER.info("3. Search Flights (by Destination)");
+        LOGGER.info("4. Generate Report");
+        LOGGER.info("5. List All Flights");
+        LOGGER.info("6. Exit");
+        LOGGER.info("Enter choice: ");
     }
 
     private static void ensureSampleFlightsExist() {
