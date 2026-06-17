@@ -4,6 +4,13 @@ public class Booking {
     private final Flight flight;
 
     public Booking(Passenger passenger, Flight flight) {
+        // Null checks validation
+        if (passenger == null) {
+            throw new IllegalArgumentException("Passenger cannot be null");
+        }
+        if (flight == null) {
+            throw new IllegalArgumentException("Flight cannot be null");
+        }
         this.passenger = passenger;
         this.flight = flight;
     }
