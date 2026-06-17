@@ -1,6 +1,9 @@
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FlightManager {
+    private static final Logger logger = Logger.getLogger(FlightManager.class.getName());
     private Map<String, Flight> flights = new LinkedHashMap<>();
 
     public void loadFlights(String filename) {
@@ -14,7 +17,9 @@ public class FlightManager {
                     String dest = parts[2].trim();
                     int seats = Integer.parseInt(parts[3].trim());
                     flights.put(fn, new Flight(fn, origin, dest, seats));
-                } catch (NumberFormatException ignored) { }
+                } catch (NumberFormatException e) {
+                    logger.log(Level.WARNING, "Invalid format in line: " + line,e);
+                }
             }
         }
     }
