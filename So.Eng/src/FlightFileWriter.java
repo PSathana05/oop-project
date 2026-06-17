@@ -1,9 +1,20 @@
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FlightFileWriter {
+
+    private static final Logger LOGGER = Logger.getLogger(FlightFileWriter.class.getName());
+
+    // Private constructor to prevent object creation
+    private FlightFileWriter() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
+
     public static boolean writeFile(String flightsFile) {
-        try {
-            FileWriter writer = new FileWriter(flightsFile); // creates or overwrites file
+        try (FileWriter writer = new FileWriter(flightsFile)) {
+
             writer.write("UL101,Colombo,London,5\n");
             writer.write("EK225,Dubai,New York,10\n");
             writer.write("QR320,Doha,Paris,8\n");
@@ -14,12 +25,12 @@ public class FlightFileWriter {
             writer.write("QF402,Sydney,Melbourne,15\n");
             writer.write("MH116,Kuala Lumpur,Perth,10\n");
             writer.write("TK730,Istanbul,Colombo,11\n");
-            writer.close();
+
             return true;
+
         } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error writing to file: {0}", e.getMessage());
             return false;
         }
     }
-
 }
