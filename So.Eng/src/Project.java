@@ -11,16 +11,19 @@ public class Project {
     private static final String CANCELLATIONS_FILE = "cancellations.txt";
     private static final String REPORT_FILE = "report.txt";
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        FlightManager flightManager = new FlightManager();
-        BookingManager bookingManager = new BookingManager();
-        ReportManager reportManager = new ReportManager();
+    private static final FlightManager flightManager = new FlightManager();
+    private static final BookingManager bookingManager = new BookingManager();
+    private static final ReportManager reportManager = new ReportManager();
+    private static final Scanner sc = new Scanner(System.in);
 
+    public static void main(String[] args) {
         ensureSampleFlightsExist();
 
         flightManager.loadFlights(FLIGHTS_FILE);
         Map<String, Flight> flights = flightManager.getFlights();
+
+        // FIX:Replace string concatenation with built-in formatting
+        LOGGER.log(Level.INFO, "Loaded {0} flights.", flights.size());
 
         System.out.println("Loaded " + flights.size() + " flights.");
 
