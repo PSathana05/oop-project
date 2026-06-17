@@ -96,7 +96,7 @@ public class BookingManager {
         }
 
         FileUtils.writeFile(bookingFile, updated, false);
-
+//refactor: reduce cognitive complexity in cancelTicket method
         List<String> cancelRecord = new ArrayList<>();
         cancelRecord.add(name + "," + flightNo);
 
