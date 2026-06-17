@@ -4,6 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Project {
+    // Add logger configuration comments
+    private static final Logger LOGGER = Logger.getLogger(Project.class.getName());
     private static final String FLIGHTS_FILE = "flights.txt";
     private static final String BOOKINGS_FILE = "bookings.txt";
     private static final String CANCELLATIONS_FILE = "cancellations.txt";
