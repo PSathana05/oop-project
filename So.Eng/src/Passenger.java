@@ -1,5 +1,6 @@
 public class Passenger {
-    private String name;
+    //change the fields into final
+    private final String name;
 
     public Passenger(String name) {
         this.name = name;
